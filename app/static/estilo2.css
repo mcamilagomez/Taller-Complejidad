@@ -1,0 +1,9 @@
+/* Estilo del fondo de la página del mapa*/
+body{
+    margin: 0;
+    padding: 0;
+    background-image: url('/static/fondomap.jpg');
+    background-size: cover;
+    font-family: sans-serif;
+    position:absolute;
+}

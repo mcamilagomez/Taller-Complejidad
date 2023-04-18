@@ -1,0 +1,50 @@
+@startuml UMlCode
+
+class Grafo {
+    'Lista que contiene los nodos
+    listavertices: list[Node]
+    'Lista que contiene el nombre de las ciudades
+    listaciudades: list[str]
+    'Matriz de distancia vertice a vertice
+    MatrizDis: list[list[int]]
+    'Matriz del recorrido a realizar de un vértice a otro
+    MatrizRec: list[list[Node]]
+    'Declara la Matriz de distancia inicial
+    MatrizDistancia() -> list[list[int]]
+    'Declara la matriz de recorrido inicial
+    MatrizRecorrido() -> list[list[Node]]
+    'Transforma las matrices de distancia y recorrido para encontrar los caminos mínimos
+    FloydWarshall() -> None
+    'Devuelve el camino más corto entre 2 vértices en forma de "linked list"
+    ListaRecorrido(start: str, finish: str) -> list[Node]
+
+}
+
+class Node {
+    'Nombre de la ciudad que representa el nodo
+    data: str
+    'Lista de adyacencia
+    connections: list[Node]
+    'Representa el peso de cada arista de la lista de adyacencia
+    weights: list[float]
+    'Posición del vértice en la matriz
+    pos: int
+    'Latitud en la que se encuentra la ciudad
+    lat: float
+    'Longitud en la que se encuentra la ciudad
+    long: float
+}
+
+class Redraw {
+    'Grafo que se obtiene del main
+    grafo: Grafo
+    'Función que pinta líneas en el mapa según sea necesario
+    Update_Map(start: str, finish: str) -> None
+}
+
+
+'Relationships
+Grafo "1" -R-o "0..." Node: Contains >
+Redraw "1" -- "1" Grafo: Uses information >
+
+@enduml
