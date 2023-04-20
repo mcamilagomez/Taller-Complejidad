@@ -6,6 +6,7 @@ from flask import Flask, render_template, request
 import os
 import geopy.distance
 import sys
+import heapq
 """Creación del grafo"""
 class Node:
     def __init__(self, data: str) -> None:
@@ -23,7 +24,7 @@ class Grafo:
         # Cada elemento de la lista de vertices corresponde en su index a la de ciudades
         self.listavertices: list[Node] = []
         self.listaciudades: list[str] = []
-        self.V = 0
+        
 
     def MatrizAdy(self):
         Matriz = [[0 for column in range(len(self.listaciudades))]
@@ -31,62 +32,35 @@ class Grafo:
 
         for node in self.listavertices:
             for node2 in self.listavertices:
-                Matriz[node.pos][node2.pos] = geopy.distance.geodesic((node.lat, node.long), (node2.lat, node2.long)).km
+                Matriz[node.pos][node2.pos] = round(geopy.distance.geodesic((node.lat, node.long), (node2.lat, node2.long)).km, 4)
 
         return Matriz
     
-    def minKey(self, key, mstSet):
- 
-        # Initialize min value
-        min = sys.maxsize
- 
-        for v in range(self.V):
-            if key[v] < min and mstSet[v] == False:
-                min = key[v]
-                min_index = v
- 
-        return min_index
- 
-    # Function to construct and print MST for a graph
-    # represented using adjacency matrix representation
-    def primMST(self):
- 
-        # Key values used to pick minimum weight edge in cut
-        key = [sys.maxsize] * self.V
-        parent = [None] * self.V  # Array to store constructed MST
-        # Make key 0 so that this vertex is picked as first vertex
-        key[0] = 0
-        mstSet = [False] * self.V
- 
-        parent[0] = -1  # First node is always the root of
-
+    
+    def Prim(self) -> list[list[int]]:
         graph = self.MatrizAdy()
-        for cout in range(self.V):
- 
-            # Pick the minimum distance vertex from
-            # the set of vertices not yet processed.
-            # u is always equal to src in first iteration
-            u = self.minKey(key, mstSet)
- 
-            # Put the minimum distance vertex in
-            # the shortest path tree
-            mstSet[u] = True
- 
-            # Update dist value of the adjacent vertices
-            # of the picked vertex only if the current
-            # distance is greater than new distance and
-            # the vertex in not in the shortest path tree
-            for v in range(self.V):
- 
-                # graph[u][v] is non zero only for adjacent vertices of m
-                # mstSet[v] is false for vertices not yet included in MST
-                # Update the key only if graph[u][v] is smaller than key[v]
-                if graph[u][v] > 0 and mstSet[v] == False \
-                and key[v] > graph[u][v]:
-                    key[v] = graph[u][v]
+        n = len(graph)
+        visited = [False] * n
+        dist = [sys.maxsize] * n
+        parent = [None] * n
+    
+        dist[0] = 0
+        pq = [(0, 0)]
+    
+        while pq:
+            d, u = heapq.heappop(pq)
+            if visited[u]:
+                continue
+        
+            visited[u] = True
+        
+            for v in range(n):
+                if graph[u][v] != 0 and not visited[v] and graph[u][v] < dist[v]:
+                    dist[v] = graph[u][v]
                     parent[v] = u
- 
-        return parent
+                    heapq.heappush(pq, (dist[v], v))
+                
+        return [(parent[i], i, graph[i][parent[i]]) for i in range(1, n) if parent[i] is not None]
 
 grafo = Grafo()
 vuelos = pd.read_csv('data/totalvuelos.csv')
@@ -106,9 +80,8 @@ for index, city in vuelos.iterrows():
         nodo.long = float(city["lng_st"])
         c += 1
 
-grafo.V = len(grafo.listaciudades)
 
-AristasPrim = grafo.primMST()
+AristasPrim = grafo.Prim()
 
 map = folium.Map(location=[4.570868,-74.297333],zoom_start=6)
 for index, location_info in vuelos.iterrows():

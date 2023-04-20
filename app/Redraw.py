@@ -11,11 +11,11 @@ def Update_Map(Aristas: list):
 
     graph = grafo.MatrizAdy()
 
-    for i in range(len(Aristas)):
-        node1 = grafo.listavertices[i]
-        node2 = grafo.listavertices[Aristas[i]]
-        weight = graph[i][Aristas[i]]
-        folium.vector_layers.PolyLine([(node1.lat, node1.long), (node2.lat, node2.long)], color="purple", weight=3, tooltip=str(weight)).add_to(map)
+    for edge in Aristas:
+        node1 = grafo.listavertices[edge[0]]
+        node2 = grafo.listavertices[edge[1]]
+        weight = edge[2]
+        folium.vector_layers.PolyLine([(node1.lat, node1.long), (node2.lat, node2.long)], color="purple", weight=3, tooltip=f"{str(weight)} km").add_to(map)
 
     directory = r"app/static"
     Save = os.path.join(directory, "map.html")
