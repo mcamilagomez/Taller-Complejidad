@@ -4,18 +4,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel ="stylesheet" href="{{url_for('static', filename='estilo.css')}}"> <!--lo del estilo CSS-->
-    <title>Página Web Laboratorio #2</title>
+    <title>Página Web</title>
     <!--Características del botón que pasa a la siguiente página (es una clase)-->
     <style> 
         .boton{ 
             position:relative;
-            left: 25%;
+            left: 61%;
+            border: 1px solid #3498db;
+            bottom: -105px;
             margin: 380px;
-            width: 200px;
+            width: 250px;
+            height: 80px;
             padding: 0px;
             background-color: transparent;
             border-radius:0px;
-            border-color: cornsilk;
+            border-color: rgb(255, 255, 255);
         }
     </style>
 </head>
@@ -26,7 +29,7 @@
         <!--Acción para pasar a la siguiente página, se declaró en main.py-->
         <form action="/continuar" method="post">
             <!--Adentro del botón irá una imagen-->
-            <button  onclick="exec('index.html');", class="boton"><img src="static/moño.png" style="width: 150px;" /></button>
+            <button onclick="exec('index.html');", class="boton",style="position: absolute;top: 100%;"></button>
         </form>
     </div>    
 </body>

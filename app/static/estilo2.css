@@ -5,5 +5,5 @@ body{
     background-image: url('/static/fondomap.jpg');
     background-size: cover;
     font-family: sans-serif;
-    position:absolute;
+    background-repeat: no-repeat;
 }
