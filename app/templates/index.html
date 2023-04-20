@@ -25,6 +25,7 @@
             font-family: 'candara';
             color: rgb(230, 100, 100);
             font-size: 120%;
+            background-color: rgb(218, 73, 102);
         }
 
         .main-container{
@@ -66,16 +67,43 @@
         }
         .botton {
             position:relative;
-            left: 61%;
-            border: 1px solid #3498db;
-            bottom: -105px;
+            border: 1px solid #a8b4bd;
+            bottom: -25px;
+            right: 198px;
             margin: 380px;
-            width: 250px;
-            height: 80px;
+            width: 140px;
+            height: 60px;
             padding: 0px;
-            background-color: transparent;
+            background-color:  #e0e4e7;
             border-radius:0px;
             border-color: rgb(255, 255, 255);
+            font-size: 120%;
+            color: rgb(218, 73, 102);
+            font-weight:600;
+        }
+        .botton2{
+            position:relative;
+            border: 1px solid #a8b4bd;
+            bottom: 1105px;
+            right: 198px;
+            margin: 380px;
+            width: 140px;
+            height: 60px;
+            padding: 0px;
+            background-color: #e0e4e7;
+            border-radius:0px;
+            border-color: rgb(255, 255, 255);
+            font: optional;
+            font-size: 120%;
+            color: rgb(218, 73, 102);
+            font-weight:600;
+        }
+        .title{
+            font-weight:600;
+            right: 598px;
+            color: rgb(255, 255, 255);
+            top: 1105px;
+            font-size: 200%;
         }
     </style>
 
@@ -97,8 +125,10 @@
             <!--Acción que realiza-->
             <form action="/datos" method="post">
                 <!--Botón para continuar-->
-                <button type="submit", id="script", class="botton", name="scriptbutton", value="Run script", onclick="exec('python Redraw.py');"></button>
+                <button type="submit", id="script", class="botton", name="scriptbutton", value="Run script", onclick="exec('python Redraw.py');">Prim</button>
+                <button type="submit", id="script", class="botton2", name="scriptbutton", value="Run script", onclick="exec('python Redraw.py');">Kruskal</button>
             </form>
+            <label, class="title"> Chicas Superpoderosas</label>
             
         </aside>
     </div>
