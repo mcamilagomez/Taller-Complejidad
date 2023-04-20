@@ -62,6 +62,48 @@ class Grafo:
                 
         return [(parent[i], i, graph[i][parent[i]]) for i in range(1, n) if parent[i] is not None]
 
+    def kruskal(self):
+        graph = self.MatrizAdy()
+        n = len(graph)
+        uf = UnionFind(n)
+        edges = []
+    
+        for u in range(n):
+            for v in range(u + 1, n):
+                if graph[u][v] != 0:
+                    edges.append((graph[u][v], u, v))
+                
+        edges.sort()
+        mst = []
+    
+        for edge in edges:
+            w, u, v = edge
+            if uf.find(u) != uf.find(v):
+                uf.union(u, v)
+                mst.append((u, v, w))
+    
+        return mst
+
+class UnionFind:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [0] * n
+    
+    def find(self, x):
+        if self.parent[x] != x:
+            self.parent[x] = self.find(self.parent[x])
+        return self.parent[x]
+    
+    def union(self, x, y):
+        px, py = self.find(x), self.find(y)
+        if px != py:
+            if self.rank[px] > self.rank[py]:
+                self.parent[py] = px
+            else:
+                self.parent[px] = py
+                if self.rank[px] == self.rank[py]:
+                    self.rank[py] += 1
+
 grafo = Grafo()
 vuelos = pd.read_csv('data/totalvuelos.csv')
 """Iteramos a través del df y añadimos las ciudades al grafo"""
@@ -82,6 +124,7 @@ for index, city in vuelos.iterrows():
 
 
 AristasPrim = grafo.Prim()
+AristasKruskal = grafo.kruskal()
 
 map = folium.Map(location=[4.570868,-74.297333],zoom_start=6)
 for index, location_info in vuelos.iterrows():
@@ -102,15 +145,22 @@ def index():
 @app.route('/continuar', methods=["GET", "POST"])
 def continuar():
     return render_template('index.html')
-@app.route('/datos', methods=["GET", "POST"])
-#Recolectar los datos
-def ciudades():
-    ciudad1 = request.form['city-1']
-    ciudad2 = request.form['city-2']
+@app.route('/Prim', methods=["GET", "POST"])
+#Ejecutar Prim
+def Prim():
     #Redibujar el mapa
-    R.Update_Map(AristasPrim)
+    R.Update_Map_Prim(AristasPrim)
     #Refrescar la pagina
     return render_template('index.html')
+
+@app.route('/Kruskal', methods=["GET", "POST"])
+#Ejecutar Kruskal
+def Kruskal():
+    #Redibujar el mapa
+    R.Update_Map_Kruskal(AristasKruskal)
+    #Refrescar la pagina
+    return render_template('index.html')
+
 if __name__ == '__main__':
     webbrowser.open("http://127.0.0.1:5000", 1)
     app.run(debug=True)

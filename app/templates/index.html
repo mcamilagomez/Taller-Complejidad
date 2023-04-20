@@ -107,11 +107,6 @@
         }
     </style>
 
-    <script>
-        export var city_1 = document.getElementById("city-1");
-        export var city_2 = document.getElementById("city-2");
-        
-    </script>
 </head>
 
 
@@ -123,9 +118,25 @@
         <iframe src="{{url_for('static', filename = 'map.html')}}" title="description" width="400" height="400" ></iframe>
         <aside class="panel">
             <!--Acción que realiza-->
-            <form action="/datos" method="post">
+            <form action="/Prim" method="post">
                 <!--Botón para continuar-->
                 <button type="submit", id="script", class="botton", name="scriptbutton", value="Run script", onclick="exec('python Redraw.py');">Prim</button>
+            </form>
+            <label, class="title"> Chicas Superpoderosas</label>
+            
+        </aside>
+    </div>
+    
+</body>
+
+<body>
+    <div class="main-container">
+        <!--Mapa-->
+        <iframe src="{{url_for('static', filename = 'map.html')}}" title="description" width="400" height="400" ></iframe>
+        <aside class="panel">
+            <!--Acción que realiza-->
+            <form action="/Kruskal" method="post">
+                <!--Botón para continuar-->
                 <button type="submit", id="script", class="botton2", name="scriptbutton", value="Run script", onclick="exec('python Redraw.py');">Kruskal</button>
             </form>
             <label, class="title"> Chicas Superpoderosas</label>
