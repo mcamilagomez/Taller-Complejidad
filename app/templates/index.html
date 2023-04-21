@@ -29,42 +29,14 @@
         }
 
         .main-container{
-            width: 80%;
+            position: relative;
+            top: -1650px;
             margin: auto;
             display: flex;
             flex-wrap: wrap;
+            right: -180px;
         }
 
-        .main-container .titlebar {
-            width: 100%;
-            
-        }
-
-        .main-container h1 {
-            text-align: center;
-            margin-bottom: 10px;
-            
-        }
-
-        .main-container iframe {
-            width: 70%;
-            border-radius: 10px;
-        }
-
-        .main-container .panel {
-            padding: 20px;
-            width: 30%;
-            left: 40%;
-        }
-
-        .panel #city-1,
-        .panel #city-2 {
-            width: 100%;
-            height: 30px;
-            line-height: 30px;
-            margin-bottom: 10px;
-            left: 90%;
-        }
         .botton {
             position:relative;
             border: 1px solid #a8b4bd;
@@ -94,15 +66,13 @@
             border-radius:0px;
             border-color: rgb(255, 255, 255);
             font: optional;
-            font-size: 120%;
+            font-size: 90%;
             color: rgb(218, 73, 102);
             font-weight:600;
         }
         .title{
             font-weight:600;
-            right: 598px;
             color: rgb(255, 255, 255);
-            top: 1105px;
             font-size: 200%;
         }
     </style>
@@ -113,16 +83,18 @@
 
 
 <body>
-    <div class="main-container">
+
+    <label, class="title"> Chicas Superpoderosas</label>
+
+    <div>
         <!--Mapa-->
-        <iframe src="{{url_for('static', filename = 'map.html')}}" title="description" width="400" height="400" ></iframe>
+        
         <aside class="panel">
             <!--Acción que realiza-->
             <form action="/Prim" method="post">
                 <!--Botón para continuar-->
                 <button type="submit", id="script", class="botton", name="scriptbutton", value="Run script", onclick="exec('python Redraw.py');">Prim</button>
             </form>
-            <label, class="title"> Chicas Superpoderosas</label>
             
         </aside>
     </div>
@@ -130,19 +102,17 @@
 </body>
 
 <body>
-    <div class="main-container">
+    <div>
         <!--Mapa-->
-        <iframe src="{{url_for('static', filename = 'map.html')}}" title="description" width="400" height="400" ></iframe>
         <aside class="panel">
             <!--Acción que realiza-->
             <form action="/Kruskal" method="post">
                 <!--Botón para continuar-->
                 <button type="submit", id="script", class="botton2", name="scriptbutton", value="Run script", onclick="exec('python Redraw.py');">Kruskal</button>
             </form>
-            <label, class="title"> Chicas Superpoderosas</label>
-            
         </aside>
     </div>
-    
+
+    <iframe src="{{url_for('static', filename = 'map.html')}}" title="description" width="1000" height="500" class="main-container"></iframe>    
 </body>
 </html>
